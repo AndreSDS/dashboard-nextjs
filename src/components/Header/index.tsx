@@ -21,6 +21,7 @@ export function Header() {
       h="20"
       mx="auto"
       mt="4"
+      mb={["4", "6"]}
       px="6"
       align="center"
     >

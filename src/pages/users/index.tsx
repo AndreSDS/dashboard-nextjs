@@ -34,12 +34,18 @@ export default function UserList() {
   });
 
   async function handlePrefetchUser(userId: string) {
-    queryClient.prefetchQuery(["user", userId], async () => {
-      const response = await api.get(`users/${userId}`)
-      return response.data;
-    }, {
-      staleTime: 1000 * 60 * 60 * 24 // 24 hours
-    })
+    setTimeout(() => {
+      queryClient.prefetchQuery(
+        ["user", userId],
+        async () => {
+          const response = await api.get(`users/${userId}`);
+          return response.data;
+        },
+        {
+          staleTime: 1000 * 60 * 60 * 24, // 24 hours
+        }
+      );
+    }, 1000);
   }
 
   return (
@@ -140,7 +146,7 @@ export default function UserList() {
               </Table>
 
               <Pagination
-                totalCountOfRegisters={data.totalCount}
+                totalCountOfRegisters={50}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
               />

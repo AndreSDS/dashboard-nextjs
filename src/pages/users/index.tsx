@@ -146,7 +146,7 @@ export default function UserList() {
               </Table>
 
               <Pagination
-                totalCountOfRegisters={50}
+                totalCountOfRegisters={data.totalCount}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
               />

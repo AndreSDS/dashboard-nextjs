@@ -1,13 +1,23 @@
-import {ChakraProvider} from "@chakra-ui/react";
-import {AppProps} from "next/app";
-import {SidebarProvider} from "../context/SideBarContext";
-import {theme} from "../styles/theme";
+import { ChakraProvider } from "@chakra-ui/react";
+import { AppProps } from "next/app";
+import { SidebarProvider } from "../context/SideBarContext";
+import { makeServer } from "../services/mirage";
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { QueryClientProviderFuntion } from "../services/query/queryClient";
+import { theme } from "../styles/theme";
 
-function MyApp({Component, pageProps}: AppProps) {
+if (process.env.NODE_ENV === "development") {
+  makeServer();
+}
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <SidebarProvider>
-        <Component {...pageProps} />;
+        <QueryClientProviderFuntion>
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProviderFuntion>
       </SidebarProvider>
     </ChakraProvider>
   );
